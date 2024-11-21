@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.acme";
+option java_outer_classname = "HelloGrpcProto";
+
+package hello;
+
+service HelloGrpc {
+    rpc SayHello (HelloRequest) returns (HelloReply) {}
+    rpc SayGoodbye (HelloRequest) returns (HelloReply) {}
+}
+
+service MathGrpc {
+    rpc Add (MathRequest) returns (MathReply) {}
+    rpc Subtract (MathRequest) returns (MathReply) {}
+}
+
+message MathRequest {
+    int32 a = 1;
+    int32 b = 2;
+}
+
+message MathReply {
+     string result = 1;
+}
+
+message HelloRequest {
+    string name = 1;
+}
+
+message HelloReply {
+    string message = 1;
+}

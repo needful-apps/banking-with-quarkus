@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.acme";
+option java_outer_classname = "AccountGrpcProto";
+
+package account;
+
+service AccountGrpc {
+  rpc AddAccount (AccountRequest) returns (AccountReply) {}
+  rpc GetAccount (AccountByIdRequest) returns (AccountReply) {}
+}
+
+message AccountByIdRequest {
+  string id = 1;
+}
+
+message AccountRequest {
+  string name = 1;
+  string iban = 2;
+  string currency = 3;
+}
+
+message AccountReply {
+  string id = 1;
+  string name = 2;
+  string iban = 3;
+  string currency = 4;
+}
