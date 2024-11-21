@@ -31,5 +31,9 @@ public class AccountService {
         return uuidString;
     }
 
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
 
 }

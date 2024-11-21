@@ -26,4 +26,16 @@ public class AccountGrpcService implements AccountGrpc {
         Account account = service.getAccountById(id);
         return Uni.createFrom().item(account.toAccountReply());
     }
+
+    @Override
+    public Uni<AccountListReply> getAccounts(AccountListRequest request) {
+        List<Account> accounts = service.getAccounts();
+        List<AccountReply> accountReplies = new ArrayList<>();
+        for (Account account : accounts) {
+            accountReplies.add(account.toAccountReply());
+        }
+        return Uni.createFrom().item(AccountListReply.newBuilder().addAllAccounts(accountReplies).build());
+    }
+
+
 }

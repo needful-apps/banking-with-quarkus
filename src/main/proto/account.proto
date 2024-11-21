@@ -9,6 +9,7 @@ package account;
 service AccountGrpc {
   rpc AddAccount (AccountRequest) returns (AccountReply) {}
   rpc GetAccount (AccountByIdRequest) returns (AccountReply) {}
+  rpc GetAccounts (AccountListRequest) returns (AccountListReply) {}
 }
 
 message AccountByIdRequest {
@@ -26,4 +27,11 @@ message AccountReply {
   string name = 2;
   string iban = 3;
   string currency = 4;
+}
+
+message AccountListRequest {
+}
+
+message AccountListReply {
+  repeated AccountReply accounts = 1;
 }
