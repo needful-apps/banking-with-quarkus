@@ -1,5 +1,6 @@
 package org.acme;
 
+import com.google.protobuf.Int32Value;
 import io.quarkus.grpc.GrpcService;
 import io.smallrye.mutiny.Uni;
 
@@ -11,7 +12,7 @@ public class MathGrpcService implements MathGrpc{
 
         var r = Uni.createFrom()
                 .item(MathReply.newBuilder()
-                        .setResult(Integer.toString(result))
+                        .setResult(Int32Value.newBuilder().setValue(result).build())
                         .build());
         return r;
     }
@@ -24,7 +25,7 @@ public class MathGrpcService implements MathGrpc{
 
         return Uni.createFrom()
                 .item(MathReply.newBuilder()
-                        .setResult(Integer.toString(result))
+                        .setResult(Int32Value.newBuilder().setValue(result).build())
                         .build());
     }
 }

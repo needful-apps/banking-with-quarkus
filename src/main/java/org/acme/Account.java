@@ -7,12 +7,18 @@ public class Account {
     String name;
     String iban;
     String currency;
+    String balance;
 
     public Account(String id, String name, String iban, String currency) {
         this.id = id;
         this.name = name;
         this.iban = iban;
         this.currency = currency;
+        this.balance = "0";
+    }
+
+    public void setBalance(String balance) {
+        this.balance = balance;
     }
 
     public AccountReply toAccountReply() {
@@ -22,6 +28,7 @@ public class Account {
                 .setName(name)
                 .setIban(iban)
                 .setCurrency(currency)
+                .setBalance(balance)
                 .build();
     }
 }

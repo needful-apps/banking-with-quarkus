@@ -27,6 +27,7 @@ message AccountReply {
   string name = 2;
   string iban = 3;
   string currency = 4;
+  string balance = 5;
 }
 
 message AccountListRequest {

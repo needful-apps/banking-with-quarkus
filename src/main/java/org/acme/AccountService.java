@@ -2,25 +2,43 @@ package org.acme;
 
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @ApplicationScoped
 public class AccountService {
-    List<Account> accounts = new ArrayList<>(List.of(
-            new Account("1", "Alice", "DE89370400440532013000", "EUR"),
-            new Account("2", "Bob", "DE89370400440532013001", "EUR"),
-            new Account("3", "Charlie", "DE89370400440532013002", "EUR")
-    ));
+
+    @Inject
+    TransactionService transactionService;
+
+    List<Account> accounts = new ArrayList<>();
 
     public Account getAccountById(String id) {
-        return accounts.stream()
+        var item =  accounts.stream()
                 .filter(account -> account.id.equals(id))
                 .findFirst()
                 .orElse(new Account("0", "Not found", "", ""));
 
+        item.setBalance(getBalance(id));
+        return item;
+    }
+
+    public String getBalance(String id) {
+        var transactions = transactionService.getTransactions();
+        BigDecimal balance = new BigDecimal(0);
+        for (Transaction transaction : transactions) {
+            if (transaction.from.equals(id)) {
+                balance = balance.subtract(transaction.amount);
+            }
+            if (transaction.to.equals(id)) {
+                balance = balance.add(transaction.amount);
+            }
+        }
+        return balance.toString();
 
     }
 
